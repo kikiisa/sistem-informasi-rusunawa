@@ -1,6 +1,6 @@
 @extends('layouts.users')
 @section('content')
-    <main class="flex flex-col items-center justify-center gap-4">
+    <main class="flex flex-col items-center justify-center gap-4 mt-3">
         <div class="w-full">
             <div class="content bg-white shadow-xl p-3 rounded-2xl">
                 <div class="title mb-3">

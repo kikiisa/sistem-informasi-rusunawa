@@ -1,6 +1,6 @@
 @extends('layouts.users')
 @section('content')
-<div class="flex flex-col items-center justify-center gap-4">
+<div class="flex flex-col items-center justify-center gap-4 mt-3">
     <div class="w-full bg-white rounded-lg shadow dark:border">
         <div class="content mt-4 p-3 m-4">   
             @if (session()->has('success'))

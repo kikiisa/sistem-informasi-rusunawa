@@ -1,10 +1,21 @@
 @extends('layouts.admin')
 @section('content')
+
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <h1 class="mb-2 text-2xl font-semibold">Daftar Pemohon</h1>
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div class="title mb-4">
+                <div class="flex flex-row gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                    </svg>
+                    <h1 class="font-bold text-2xl">Daftar Permohonan</h1>
+                </div>  
+            </div>
+            
+
+            <table id="data-table" class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -32,7 +43,7 @@
                         <tr
                             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              1
+                              {{ $loop->iteration }}
                             </th>
                             <td class="px-6 py-4">
                                 {{ $item->name }}
@@ -52,8 +63,8 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
-            </div>
+                </table> 
         </div>
     </div>
+  
 @endsection

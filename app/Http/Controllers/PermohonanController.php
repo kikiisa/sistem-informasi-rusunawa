@@ -49,8 +49,7 @@ class PermohonanController extends Controller
     public function edit(string $id)
     {
         $data = BerkasUser::with(["user", "perizinan_file"])->where("id_user", $id)->get();
-        
-        return view("admin.permohonan.edit",compact("data"));
+        return view("admin.permohonan.edit",compact("data"));   
     }
 
     /**
@@ -58,7 +57,18 @@ class PermohonanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = BerkasUser::findOrFail($id);
+        
+        $data->update([
+            "status" => $request->status,
+            "keterangan" => $request->keterangan,
+        ]);
+
+        if($data)
+        {
+            return redirect()->back()->with("success", "Data berhasil diupdate");
+        }
+        return redirect()->back()->with("error", "Data gagal diupdate");
     }
 
     /**
