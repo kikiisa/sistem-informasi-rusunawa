@@ -19,7 +19,6 @@
 
 <body class="bg-slate-100">
     <main>
-
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
@@ -35,11 +34,12 @@
                                 </path>
                             </svg>
                         </button>
-                        <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Logo_Kementerian_Pekerjaan_Umum_Republik_Indonesia.svg/225px-Logo_Kementerian_Pekerjaan_Umum_Republik_Indonesia.svg.png"
-                             class="h-8 me-3 rounded-full" alt="Perkim Logo" />
+                        <a href="javascript:void(0)" class="flex ms-2 md:me-24">
+                            <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/LOGO_KOTA_GORONTALO.png/792px-LOGO_KOTA_GORONTALO.png" 
+                            class="h-8 me-3 rounded-full" alt="Perkim Logo" />
                             <span
-                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">ADMIN {{ env('APP_NAME') }}</span>
+                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ env('APP_NAME') }}</span>
                         </a>
                     </div>
                     <div class="flex items-center">
@@ -119,8 +119,6 @@
                                     d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
                             </svg>
                             <span class="flex-1 ms-3 whitespace-nowrap">Data Permohonan</span>
-                            <span
-                                class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                         </a>
                     </li>
                    
@@ -142,7 +140,7 @@
                         </button>
                         <ul id="dropdown-example" class="hidden py-2 space-y-2">
                             <li>
-                                <a href=""
+                                <a href="{{ route('perizinan.index') }}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master Perizinan</a>
                             </li>
                             <li>
@@ -174,7 +172,7 @@
                         </div>
                         <p class="mb-3 text-sm text-blue-800 dark:text-blue-400">
                             Masih Tahap Pengembangan SIPR V.1.0
-                            Dikembangkan oleh Paris Moridu &copy;
+                            Dikembangkan oleh Paris Moridu {{ date('Y')}} &copy;
                         </p>
                         
                     </div>

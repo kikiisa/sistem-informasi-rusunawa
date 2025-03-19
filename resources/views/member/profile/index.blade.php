@@ -1,8 +1,8 @@
 @extends('layouts.users')
 @section('content')
 <div class="flex flex-col items-center justify-center gap-4 mt-3">
-    <div class="w-full bg-white rounded-lg shadow dark:border">
-        <div class="content mt-4 p-3 m-4">   
+    <div class="w-full bg-white p-4 rounded-lg shadow dark:border">
+        <div class="content mt-4">   
             @if (session()->has('success'))
             <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

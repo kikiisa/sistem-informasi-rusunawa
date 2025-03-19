@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BerkasUser;
+use App\Models\PerizinanFile;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,8 @@ class PermohonanController extends Controller
     {
 
         $data = User::with("berkas")->get();
-        
-        return view('admin.permohonan.index',compact("data"));
+        $perizinan = PerizinanFile::all()->count();
+        return view('admin.permohonan.index',compact("data","perizinan"));
     }
 
     /**

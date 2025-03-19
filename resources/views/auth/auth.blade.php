@@ -19,16 +19,17 @@
 <body>
     <section class=" dark:bg-gray-900 bg-white ">
         <div class="flex flex-col items-center justify-center px-6 mx-auto h-screen lg:py-0">
-            <div class="w-100  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-100  rounded-lg  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <div class="image-group flex flex-row gap-3 justify-center">
+                       
                         <img class="rounded-full"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Logo_Kementerian_Pekerjaan_Umum_Republik_Indonesia.svg/225px-Logo_Kementerian_Pekerjaan_Umum_Republik_Indonesia.svg.png"
-                            width="70" alt="" srcset="">
-
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/LOGO_KOTA_GORONTALO.png/792px-LOGO_KOTA_GORONTALO.png"
+                            width="70" alt="" srcset=""> 
+                     
                     </div>
                     <h1
-                        class="text-xl font-bold text-center leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        class="text-xl font-bold text-center leading-tight tracking-tight bg-gradient-to-r from-yellow-600 via-green-500 to-indigo-600  text-transparent bg-clip-text">
                         SISTEM INFORMASI<br> PENGELOLAAN RUSUNAWA</h1>
                     <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('login.store') }}">
                         @csrf
@@ -70,7 +71,7 @@
                                 password?</a>
                         </div>
                         <button type="submit"
-                            class="w-full text-white bg-slate-900 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign
+                            class="w-full text-white bg-blue-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign
                             in</button>
 
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -79,6 +80,8 @@
                                 Sekarang</a>
                         </p>
                     </form>
+                    <p class="text-xs font-light text-center text-gray-500 dark:text-gray-400"> Oleh Perkim Kota Gorontalo Dibuat dengan <span class="text-red-600">❤</span></p>
+                
                 </div>
             </div>
         </div>
