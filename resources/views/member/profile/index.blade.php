@@ -1,8 +1,9 @@
 @extends('layouts.users')
 @section('content')
-<div class="flex flex-col items-center justify-center gap-4 mt-3">
-    <div class="w-full bg-white p-4 rounded-lg shadow dark:border">
-        <div class="content mt-4">   
+<div class="flex flex-col items-center justify-center gap-4 mt-3 mb-14">
+    <div class="w-full bg-white p-3 rounded-lg shadow dark:border">
+        <h4 class="text-lg font-bold mb-3">Update Profile</h4>
+        <div class="content">   
             @if (session()->has('success'))
             <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +32,7 @@
                     </ul>
                 </div>
             @endif
-            <h3 class="font-semibold text-xl mb-4">Update Profile</h3>
+            
             <form action="{{ route('profile.update', $user->id) }}" enctype="multipart/form-data" method="post">
                 @csrf
                 @method('put')
@@ -57,7 +58,7 @@
                     <input type="password" placeholder="••••••••" name="confirm" id="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Simpan</button>
+                class="text-white bg-blue-700 mt-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Simpan</button>
             </form>
         </div>
     </div>

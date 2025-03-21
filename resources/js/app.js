@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             header: true,
             searchable: true,
             sortable: true,
-            perPage: 10,
+            perPage: 5,
             perPageSelect: [5, 10, 20, 50],
             firstLast: true,
         });

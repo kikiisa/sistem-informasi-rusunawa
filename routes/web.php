@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BerkasUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManagementKontrak;
 use App\Http\Controllers\PerizinanFileController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\ProfileController;
@@ -37,11 +38,8 @@ Route::prefix('account')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get("dashboard",[DashboardController::class,'member'])->name('member.dashboard'); 
         Route::resource("profile", ProfileController::class);
-
-
         Route::resource("berkas", BerkasUserController::class);
-
-        
+        Route::resource("management-kontrak",ManagementKontrak::class);
         Route::get("logout",[AuthController::class,'LogoutMember'])->name('logout.member');
         
     });

@@ -14,7 +14,6 @@ class PermohonanController extends Controller
      */
     public function index()
     {
-
         $data = User::with("berkas")->get();
         $perizinan = PerizinanFile::all()->count();
         return view('admin.permohonan.index',compact("data","perizinan"));

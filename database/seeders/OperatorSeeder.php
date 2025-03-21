@@ -17,11 +17,11 @@ class OperatorSeeder extends Seeder
         Operator::create([
             'uuid' => Uuid::uuid4()->toString(),
             'name' => 'Operator 1',
-            'email' => 'pHs4o@example.com',
+            'email' => 'admin@gmail.com',
             'avatar' => null,
             'phone' => '08123456789',
             'role' => 'admin',
-            'password' => bcrypt('operator123'),
+            'password' => bcrypt('admin123'),
         ]);
     }
 }
