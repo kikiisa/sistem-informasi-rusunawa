@@ -45,11 +45,9 @@ class AuthController extends Controller
         ])){
             $request->session()->regenerate();
             return redirect()->route('member.dashboard')->with('success', 'Login Berhasil');
+        }else{
+            return redirect()->back()->with('error', 'Email atau Password Salah');
         }
-
-       
-        
-        return redirect()->back()->with('error', 'Email atau Password Salah');
     }
 
     public function LogoutMember(Request $request)

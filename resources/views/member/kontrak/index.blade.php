@@ -1,4 +1,4 @@
-@extends('layouts.users')
+    @extends('layouts.users')
 @section('content')
     <div class=" w-full">
         <div class="content mt-4">
@@ -65,7 +65,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#"
+                                    <a href="{{ route('management-kontrak.show', $item->id) }}"
                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Kontrak</a>
                                 </td>
                             </tr>

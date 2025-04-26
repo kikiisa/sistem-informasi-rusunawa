@@ -32,7 +32,6 @@
                     </ul>
                 </div>
             @endif
-            
             <form action="{{ route('profile.update', $user->id) }}" enctype="multipart/form-data" method="post">
                 @csrf
                 @method('put')

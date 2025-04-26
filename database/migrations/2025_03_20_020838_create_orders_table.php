@@ -16,9 +16,11 @@ return new class extends Migration
             $table->uuid("uuid");
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
             $table->foreignId("kamar_id")->constrained()->onDelete("cascade");
+            $table->enum("waktu_kontrak",["1 bulan","3 bulan","6 bulan","1 tahun"]);
             $table->dateTime("tanggal_order")->nullable();
             $table->dateTime("waktu_berakhir")->nullable();
             $table->enum("status_order",["pending","approved","rejected"])->default("pending");
+            $table->string("file")->nullable();
             $table->timestamps();
         });
     }
