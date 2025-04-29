@@ -40,6 +40,7 @@ class ManagementKontrak extends Controller
 
     public function store(Request $request)
     {
+        
         if (Order::where("user_id", Auth::user()->id)->exists()) {
             return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
         }

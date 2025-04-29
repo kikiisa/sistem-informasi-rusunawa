@@ -53,20 +53,27 @@
                                     @if ($item->status == 'tersedia')
                                         <span
                                             class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                            {{ $item->status }}
+                                            ✔
                                         </span>
                                         
                                     @endif
-                                    @if ($item->status == 'tidak tersedia')
+                                    @if ($item->status == 'tidak_tersedia')
                                         <span
-                                            class=" text-sm bg-red-100 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                                            {{ $item->status }}
+                                            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
+                                            ❌
                                         </span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
+                                    @if ($item->status == 'tersedia')
                                     <a href="{{ route('management-kontrak.show', $item->id) }}"
                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Kontrak</a>
+                                    @else
+                                    <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
+                                    ❌
+                                    </span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

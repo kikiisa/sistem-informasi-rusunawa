@@ -18,7 +18,6 @@ class PermohonanController extends Controller
         $perizinan = PerizinanFile::all()->count();
         return view('admin.permohonan.index',compact("data","perizinan"));
     }
-
     /**
      * Show the form for creating a new resource.
      */

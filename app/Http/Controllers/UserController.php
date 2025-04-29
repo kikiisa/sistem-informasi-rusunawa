@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('member.profile.index',[
-            "user" => $user
-        ]);
+        $data = User::all();
+        return view('admin.user.index',compact("data"));   
     }
 
     /**
@@ -24,7 +24,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -48,15 +48,17 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.user.edit',[
+            "user" => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        
         $data = User::find($id);
         if($request->password != null){
             
@@ -64,33 +66,34 @@ class ProfileController extends Controller
                 'name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-              
+                'status' => 'required',
                 'confirm' => 'required|same:password'
             ]);
             $data->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                
                 'password' => bcrypt($request->password), 
+                'status' => $request->status,
             ]);
-            return redirect()->route('profile.index')->with("success", "Data Berhasil Update");
+            return redirect()->route('user.index')->with("success", "Data Berhasil Update");
         }else{
 
             $request->validate([
                 'name' => 'required',
                 'phone' => 'required',
                 'email' => 'required|email',
-                'confirm' => 'required|same:password',
+                'status' => 'required',
+                
            
             ]);
             $data->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-          
+                'status' => $request->status,
             ]);
-            return redirect()->route('profile.index')->with("success", "Data Berhasil Update");
+            return redirect()->route('user.index')->with("success", "Data Berhasil Update");
         }
     }
 
@@ -99,6 +102,13 @@ class ProfileController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cek = Order::where('user_id',$id)->exists();
+        if($cek)
+        {
+            return redirect()->back()->with('error','User tidak dapat dihapus karena terdapat transaksi');
+        }else{
+            User::destroy($id);
+            return redirect()->back()->with('success','User berhasil dihapus');
+        }
     }
 }

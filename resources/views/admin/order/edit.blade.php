@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin', ["title" => "Edit Order"])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
@@ -12,7 +12,6 @@
                     <h1 class="font-bold text-2xl">Detail Order</h1>
                 </div>
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white">
-                  
                     @if ($errors->any())
                         <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                             role="alert">
@@ -40,7 +39,7 @@
                         <p class="text-sm font-semibold mt-2">
                            
                             Status: <span
-                                class="{{ $data->kamar->status === 'tersedia' ? 'text-green-600' : 'text-red-600' }}">{{ ucfirst($data->kamar->status) }}</span>
+                                class="{{ $data->kamar->status === 'tersedia' ? 'text-green-600' : 'text-red-600' }}">Tidak Tersedia</span>
                         </p>
                         <div class="mt-4">     
                            <p>Pengajuan Masa Kontrak <span class=" bg-green-300 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded">{{ $data->waktu_kontrak }}</span></p>
@@ -76,29 +75,29 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative p-4 lg:w-1/2">
-                <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                    <!-- Modal header -->
-                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            Bukti Pembayaran
-                        </h3>
-                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
+            <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 lg:w-1/2">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Bukti Pembayaran
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5 space-y-4">
+                            <img src="{{ asset('data/transaksi/' . $data->file) }}" alt="" srcset="">
+                        </div>
+                        <!-- Modal footer -->
+                       
                     </div>
-                    <!-- Modal body -->
-                    <div class="p-4 md:p-5 space-y-4">
-                        <img src="{{ asset('data/transaksi/' . $data->file) }}" alt="" srcset="">
-                    </div>
-                    <!-- Modal footer -->
-                   
                 </div>
             </div>
         </div>

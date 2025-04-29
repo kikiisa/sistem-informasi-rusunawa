@@ -39,12 +39,22 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->route('admin.dashboard')->with('success', 'Login Berhasil');
         }
+
         if($this->authServices->login([
             'email' => $request->email,
             'password' => $request->password
         ])){
-            $request->session()->regenerate();
-            return redirect()->route('member.dashboard')->with('success', 'Login Berhasil');
+            
+            if(Auth::user()->status == "inactive"){
+                Auth::guard("operator")->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login')->with('error', 'Terjadi Kesalahan Pada Account, Silahkan Hubungi Admin');
+            }else{
+                $request->session()->regenerate();
+                return redirect()->route('member.dashboard')->with('success', 'Login Berhasil');
+
+            }
         }else{
             return redirect()->back()->with('error', 'Email atau Password Salah');
         }

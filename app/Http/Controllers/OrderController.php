@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,12 +67,22 @@ class OrderController extends Controller
             return redirect()->route("riwayat-kontrak")->with("success","Berhasil Di Update");
 
         }else{
+            
             $request->validate([
                 "status_kontrak" => "required|sometimes",
                 "tanggal_order" => "nullable|date|sometimes",
                 "waktu_berakhir" => "nullable|date|sometimes",
                 "file" => "nullable|mimes:pdf|max:5000|sometimes",
             ]);
+            
+            if($request->status_kontrak == "approved")
+            {
+                $kamar = Kamar::find($data->kamar_id);
+                $kamar->update([
+                    "status" => "tidak_tersedia",
+                ]);
+                
+            }
             $data->update([
                 "status_order" => $request->status_kontrak,
                 "tanggal_order" => $request->tanggal_order,

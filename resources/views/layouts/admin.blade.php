@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ env('APP_NAME') }}</title>
+    <title>{{$title}}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,7 @@
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/LOGO_KOTA_GORONTALO.png/792px-LOGO_KOTA_GORONTALO.png" 
                             class="h-8 me-3 rounded-full" alt="Perkim Logo" />
                             <span
-                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ env('APP_NAME') }}</span>
+                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">SIPR V.1.1</span>
                         </a>
                     </div>
                     <div class="flex items-center">
@@ -140,6 +140,10 @@
                         </button>
                         <ul id="dropdown-example" class="hidden py-2 space-y-2">
                             <li>
+                                <a href="{{ route('kamar.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master Kamar</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('perizinan.index') }}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master Perizinan</a>
                             </li>
@@ -148,7 +152,7 @@
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master Operator</a>
                             </li>
                             <li>
-                                <a href="#"
+                                <a href="{{Route('user.index')}}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master Pemohon</a>
                             </li>
                             <li>

@@ -1,4 +1,4 @@
-@extends('layouts.admin',["title" => "Daftar Permohonan"])
+@extends('layouts.admin',["title" => "Daftar Pengguna"])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
@@ -9,7 +9,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                     </svg>
-                    <h1 class="font-bold text-2xl">Daftar Permohonan</h1>
+                    <h1 class="font-bold text-2xl">Daftar Pengguna</h1>
                 </div>
             </div>
             <table id="data-table" class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -23,12 +23,10 @@
                         </th>
 
                         <th scope="col" class="px-6 py-3">
-                            Berkas Masuk
+                            Phone
                         </th>
-
                         <th scope="col" class="px-6 py-3">
-                            Status Verifikasi
-
+                            Akses
                         </th>
 
                         <th scope="col" class="px-6 py-3">
@@ -48,37 +46,27 @@
                                 {{ $item->name }}
                             </td>
                             <td class="px-6 py-4">
-                                <span
-                                    class=" text-sm bg-blue-100 text-blue-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                    {{ $item->berkas->count() }}
-                                </span>
+                                {{ $item->phone }}
                             </td>
                             <td class="px-6 py-4">
-                                @php
-                                    $data = collect($item->berkas);
-                                    $approved = $data->where('status', 'approved')->count();
-                                @endphp
                                 
-                                @if ($approved ==  $perizinan)
-                                    <span class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                        Memenuhi Syarat
-                                    </span>
-                                
+                                @if ($item->status == "active")
+                                    <span class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Aktif</span>
                                 @else
-                                    <span class=" text-sm bg-yellow-100 text-yellow-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
-                                        Menunggu Verifikasi
-                                    </span>
+                                    <span class=" text-sm bg-red-100 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Tidak Aktif</span>
                                 @endif
                             </td>
+                            
                             <td class="px-6 py-4 flex flex-wrap">
-                                <a href="{{ route('permohonan.edit', $item->id) }}"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
-                                    
-                                    @if ($approved ==  $perizinan)
-                                    <a href="{{ route('permohonan.edit', $item->id) }}"
-                                        class="text-white bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:focus:ring-yellow-400">Cetak Surat Izin</a>
-                                        
-                                    @endif
+                                <form action="{{ route('user.destroy', $item->id) }}" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="submit" 
+                                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Hapus</button>
+                                    <a href="{{ route('user.edit', $item->id) }}"
+                                        class="text-white bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:focus:ring-yellow-400">Edit</a>
+                                </form>
+                                
                             </td>
                         </tr>
                     @endforeach

@@ -1,32 +1,39 @@
-@extends('layouts.admin',["title" => "Daftar Order"])
+@extends('layouts.admin',["title" => "Management Kamar"])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="title mb-4">
-                <div class="flex flex-row gap-2">
+            <div class="title mb-4 flex flex-row justify-between">
+                <div class="flex flex-col">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                     </svg>
-                    <h1 class="font-bold text-2xl">Daftar Pengajuan</h1>
+                    <h1 class="font-bold text-2xl">Daftar Kamar</h1>
+                   
+                    
+                </div>
+                <div class="flex flex-row">
+                    <a href="{{ route('kamar.create') }}" 
+                    class="block mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Tambah Ruangan
+                </a>
                 </div>
             </div>
-            <table id="data-table" class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             No
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nama
-                        </th>
-
-                        <th scope="col" class="px-6 py-3">
-                            Waktu Pengajuan
+                            No Kamar
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Status Kontrak
+                            Lt Kamar
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -35,46 +42,39 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
-                        <tr
-                            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $loop->iteration }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $item->user->name }}
+                                {{ $item->no_kamar }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $item->created_at->diffForHumans() }}
+                                {{ $item->lt_kamar }}
                             </td>
                             <td class="px-6 py-4">
-                                @switch($item->status_order)
-                                    @case($item->status_order = "pending")
-                                        <span class="text-sm bg-yellow-100 text-yellow-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Pending</span>
-                                        @break
-                                    @case($item->status_order = "approved")
-                                        <span class="text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Di Terima</span>
-                                        @break
-                                    @case($item->status_order = "rejected")
-                                        <span class="text-sm bg-red-100 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Di Tolak</span>
-                                        @break
-                                    @default
-                                @endswitch
+                                @if ($item->status == 'tersedia')
+                                    <span
+                                        class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                        Tersedia
+                                    </span>
+                                @endif
+                                @if ($item->status == 'tidak_tersedia')
+                                    <span
+                                        class=" text-sm bg-red-100 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                                        Tidak Tersedia
+                                    </span>
+                                @endif
                             </td>
-                            <td class="px-6 py-4 flex flex-wrap">
-                                <form action="{{ route('order.destroy', $item->id) }}" method="post">
-                                    
+                            <td class="px-6 py-4">
+                                <form action="{{ Route('kamar.destroy', $item->id) }}" method="post">
                                     @csrf
-                                    @method('delete')
+                                    @method('DELETE')
                                     <button type="submit"
                                         class="text-white  bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Hapus</button>
-                                    <a href="{{ route('order.edit', $item->id) }}"
+                                    <a href="{{ route('kamar.edit', $item->id) }}"
                                         class="text-white  bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-400 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">Edit</a>
-                                    @if ($item->status_order ==  'approved')
-                                    <a href="{{ route('surat.izin') }}"
-                                        class="text-white bg-blue-400 hover:bg-blye-300 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-blue-400 dark:hover:bg-yellow-300 dark:focus:ring-blue-400">Cetak Surat Izin</a>
-                                        
-                                    @endif
                                 </form>
                             </td>
                         </tr>
@@ -82,6 +82,6 @@
                 </tbody>
             </table>
         </div>
+     
     </div>
-   
 @endsection

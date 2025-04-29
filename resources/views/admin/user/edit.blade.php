@@ -33,7 +33,7 @@
                 </div>
             @endif
             
-            <form action="{{ route('pengaturan-account.update', $user->id) }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data" method="post">
                 @csrf
                 @method('put')
                 <div class="mb-2">
@@ -50,9 +50,17 @@
                     <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 <div class="mb-2">
+                    <label for="access" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                    <select id="access" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="active" @selected($user->status == 'active')>Aktif</option>
+                        <option value="inactive" @selected($user->status == 'inactive')>Tidak Aktif</option>
+                    </select>
+                </div>
+                <div class="mb-2">
                     <label for="password" class="block text-gray-700 text-sm mb-2">Password</label>
                     <input type="password" placeholder="••••••••" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
+                
                 <div class="mb-2">
                     <label for="password_confirmation" class="block text-gray-700 text-sm mb-2">Konfirmasi Password</label>
                     <input type="password" placeholder="••••••••" name="confirm" id="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

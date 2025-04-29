@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin',["title" => "Dashboard"])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
@@ -28,6 +28,15 @@
                             <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
                                 {{ $totalBerkas }} Berkas</h5>
                             <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Berkas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                {{ $user }} Pengguna</h5>
+                            <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Pengguna</p>
                         </div>
                     </div>
                 </div>

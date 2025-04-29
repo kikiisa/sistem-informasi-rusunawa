@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>Login - {{ env('APP_NAME') }}</title>
+    <title>Login - SIPR</title>
     
 </head>
 
