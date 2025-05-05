@@ -27,8 +27,11 @@ class DashboardController extends Controller
     {
         $data = BerkasUser::all();
         $user = User::count();
+        $syarat = PerizinanFile::all()->count();
         
         return view('admin.dashboard.index',[
+            "syarat" => $syarat,
+            
             "user" => $user,
             "totalBerkas" => $data->count(),
             "totalBerkasBulanIni" => BerkasUser::whereYear('created_at', Carbon::now()->year)

@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             OperatorSeeder::class,
             PerizinanFileSeeder::class,
             BerkaseUserSeeder::class,
-            KamarSeeder::class
+            KamarSeeder::class,
+            
         ]);
     }
 }

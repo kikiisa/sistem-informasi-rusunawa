@@ -1,24 +1,16 @@
-@extends('layouts.admin',["title" => "Management Kamar"])
+@extends('layouts.admin', ['title' => 'Management Kamar'])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="title mb-4 flex flex-row justify-between">
-                <div class="flex flex-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
-                    </svg>
-                    <h1 class="font-bold text-2xl">Daftar Kamar</h1>
+            <div class="title mb-4">
+                <div class="flex flex-row gap-2 mb-4">
                    
-                    
+                    <h1 class="font-bold text-2xl">Daftar Pengajuan</h1>
                 </div>
-                <div class="flex flex-row">
-                    <a href="{{ route('kamar.create') }}" 
-                    class="block mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Tambah Ruangan
+                <a href="{{ route('kamar.create') }}" data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white   bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                type="button">
+                    Tambah Kamar
                 </a>
-                </div>
             </div>
             <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -82,6 +74,6 @@
                 </tbody>
             </table>
         </div>
-     
+
     </div>
 @endsection

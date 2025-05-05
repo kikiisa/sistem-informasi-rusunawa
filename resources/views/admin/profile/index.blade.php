@@ -49,10 +49,22 @@
                     <label for="phone" class="block text-gray-700 text-sm mb-2">Phone</label>
                     <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
+                @if (request()->segment(2) != 'pengaturan-account')
+                <div class="mb-2">
+                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Role</label>
+                    <select id="countries" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected>Pilih Role</option>
+                      <option value="admin" {{ $user->role == 'admin' ? 'selected' : ''}}>Admin</option>
+                      <option value="pimpinan" {{ $user->role == 'pimpinan' ? 'selected' : ''}}>Pimpinan</option>
+                    </select>
+                </div>
+                @endif
                 <div class="mb-2">
                     <label for="password" class="block text-gray-700 text-sm mb-2">Password</label>
                     <input type="password" placeholder="••••••••" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
+                
+               
                 <div class="mb-2">
                     <label for="password_confirmation" class="block text-gray-700 text-sm mb-2">Konfirmasi Password</label>
                     <input type="password" placeholder="••••••••" name="confirm" id="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

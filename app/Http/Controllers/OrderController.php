@@ -34,6 +34,10 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $data = Order::find($id);
+        $room = Kamar::find($data->kamar_id);
+        $room->update([
+            "status" => "tersedia"
+        ]);
         if(File::exists($this->path.$data->file))
         {
             File::delete($this->path.$data->file);
@@ -47,6 +51,7 @@ class OrderController extends Controller
         $data = Order::find($id);
         if($request->hasFile("file")) 
         {
+            
             $request->validate([
                 "file" => "required|mimes:png,jpg,jpeg,pdf|max:2000",
             ],[
@@ -63,6 +68,7 @@ class OrderController extends Controller
             $file->move($this->path, $filename);
             $data->update([
                 "file" => $filename,
+                "waktu_kontrak" => $request->masa_kontrak,
             ]);
             return redirect()->route("riwayat-kontrak")->with("success","Berhasil Di Update");
 
@@ -88,7 +94,7 @@ class OrderController extends Controller
                 "tanggal_order" => $request->tanggal_order,
                 "waktu_berakhir" => $request->waktu_berakhir,
             ]);
-            return redirect()->route("order.index")->with("success","Berhasil Di Update");
+            return redirect()->back()->with("success","Berhasil Di Update");
         }  
          
     }

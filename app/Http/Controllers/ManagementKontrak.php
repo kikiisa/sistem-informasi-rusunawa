@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BerkasUser;
 use App\Models\Kamar;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\PerizinanFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,11 +30,15 @@ class ManagementKontrak extends Controller
     public function show($id)
     {
         $validasiBerkas = collect(BerkasUser::where("id_user", Auth::user()->id)->get());
+        $dataPayment = Payment::all();
         $perizinan = PerizinanFile::all()->count();
         $dataApproved = ($validasiBerkas->where("status", "approved")->count());
         if ($dataApproved == $perizinan) {
             $data = Kamar::find($id);
-            return view("member.kontrak.detail", compact("data"));
+            return view("member.kontrak.detail",[
+                "data" => $data,
+                "dataPayment" => $dataPayment
+            ]);
         }
         return redirect()->route("berkas.index")->with("info", "Lengkapi Data Perizinan Terlebih Dahulu");
     }
@@ -47,6 +52,7 @@ class ManagementKontrak extends Controller
         if ($request->hasFile("bukti_pembayaran")) {
 
             $request->validate([
+                
                 "bukti_pembayaran" => "required|image|mimes:jpeg,png,jpg|max:2048",
             ], [
                 "bukti_pembayaran.required" => "Bukti Pembayaran Wajib Di

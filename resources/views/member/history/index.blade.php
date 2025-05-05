@@ -76,6 +76,7 @@
 
                                 </td>
                                 <td class="px-6 py-4 flex flex-wrap">
+                                    
                                     <a href="{{ route('riwayat-kontrak.detail', $item->id) }}"
                                         class="text-sm bg-green-600  cursor-pointer hover:bg-green text-white font-medium mr-2 px-2.5 py-0.5 rounded">Lihat
                                         Kontrak</a>

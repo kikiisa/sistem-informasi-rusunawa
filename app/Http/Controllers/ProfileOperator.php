@@ -63,20 +63,25 @@ class ProfileOperator extends Controller
                 'name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-                'confirm' => 'required|same:password'
+                'confirm' => 'required|same:password',
+                'role' => 'required|sometimes',
+
             ],[
                 'name.required' => 'Nama wajib diisi !',
                 'email.required' => 'Email wajib diisi !',
                 'email.email' => 'Email tidak valid !',
                 'password.required' => 'Password wajib diisi !',
                 'password_confirmation.required' => 'Konfirmasi Password wajib diisi !',
-                'password_confirmation.same' => 'Konfirmasi Password tidak sama !'
+                'password_confirmation.same' => 'Konfirmasi Password tidak sama !',
+                'role.required' => 'Role wajib diisi !',
             ]);
             $data->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => bcrypt($request->password), 
+                'role' => $request->role ? $request->role : $data->role
+
             ]);
             return redirect()->back()->with("success", "Data Berhasil Update");
         }else{
@@ -85,17 +90,21 @@ class ProfileOperator extends Controller
                 'name' => 'required',
                 'phone' => 'required',
                 'email' => 'required|email',
+                'role' => 'required|sometimes',
+                
             ],[
                 'name.required' => 'Nama wajib diisi !',
                 'email.required' => 'Email wajib diisi !',
                 'email.email' => 'Email tidak valid !',
                 'phone.required' => 'No Telepon wajib diisi !',
-                
+                'role.required' => 'Role wajib diisi !',
             ]);
             $data->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phone
+                'phone' => $request->phone,
+                'role' => $request->role ? $request->role : $data->role
+                
             ]);
             return redirect()->back()->with("success", "Data Berhasil Update");
         }

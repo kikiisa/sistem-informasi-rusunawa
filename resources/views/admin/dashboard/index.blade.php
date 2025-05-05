@@ -12,6 +12,9 @@
                     <h1 class="font-bold text-2xl">SIPR V.1.0</h1>
                 </div>  
             </div>
+            <div class="py-4">
+                <h1 class="mb-2 text-xl font-semibold">Hi 👋, {{auth()->guard('operator')->user()->name}} <strong>{{ Auth::user() }}</strong></h1>
+            </div>
             <div class="statistik grid grid-cols-2 gap-4 mt-4">
                 <div class=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
@@ -37,6 +40,15 @@
                             <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
                                 {{ $user }} Pengguna</h5>
                             <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Pengguna</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                {{ $syarat }} Persyaratan Izin</h5>
+                            <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Persyaratan</p>
                         </div>
                     </div>
                 </div>
