@@ -81,8 +81,7 @@ class ProfileController extends Controller
                 'name' => 'required',
                 'phone' => 'required',
                 'email' => 'required|email',
-                'confirm' => 'required|same:password',
-           
+                
             ]);
             $data->update([
                 'name' => $request->name,
