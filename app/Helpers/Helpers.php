@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 use Illuminate\Support\Carbon;
 
-function expired($awal,$akhir){
+function expired($awal, $akhir)
+{
     $tanggalMulai = Carbon::parse($awal);
     $tanggalAkhir = Carbon::parse($akhir);
     $hariIni = Carbon::today();
@@ -17,13 +18,25 @@ function expired($awal,$akhir){
     }
 }
 
-function format_tanggal($date){
+function format_tanggal($date)
+{
     return Carbon::parse($date)->translatedFormat('d F Y');
 }
 
-function countMonth($awal,$akhir){
+function countMonth($awal, $akhir)
+{
     $tanggalMulai = Carbon::parse($awal);
     $tanggalAkhir = Carbon::parse($akhir);
     $bulan = $tanggalMulai->diffInMonths($tanggalAkhir);
     return "$bulan Bulan";
+}
+
+function get_initials($name)
+{
+    $parts = explode(' ', $name);
+    $initials = '';
+    foreach ($parts as $part) {
+        $initials .= strtoupper(substr($part, 0, 1));
+    }
+    return $initials;
 }

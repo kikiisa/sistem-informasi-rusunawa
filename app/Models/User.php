@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -48,8 +48,16 @@ class User extends Authenticatable
 
     public function berkas()
     {
-        return $this->hasMany(BerkasUser::class,"id_user");
+        return $this->hasMany(BerkasUser::class, "id_user");
     }
 
-    
+    public function getInitialsAttribute()
+    {
+        $parts = explode(' ', $this->name);
+        $initials = '';
+        foreach ($parts as $part) {
+            $initials .= strtoupper(substr($part, 0, 1));
+        }
+        return $initials;
+    }
 }
