@@ -63,9 +63,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('vendor/chart/chart.js') }}"></script>
     <script>
-
+        
         const getTotalTransactionAllMonth = async () => {
             const ctx =  document.querySelector(".statistikTransaksi");
             const response = await fetch('{{ route("transaksi-month") }}');
