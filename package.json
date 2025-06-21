@@ -19,6 +19,7 @@
         "@tiptap/core": "^2.11.5",
         "@tiptap/pm": "^2.11.5",
         "@tiptap/starter-kit": "^2.11.5",
+        "chart.js": "^4.5.0",
         "simple-datatables": "^10.0.0"
     }
 }

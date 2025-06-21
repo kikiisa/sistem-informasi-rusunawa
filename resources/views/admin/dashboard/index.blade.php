@@ -52,8 +52,90 @@
                         </div>
                     </div>
                 </div>
+                <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                  
+                    <canvas class="statistikUser"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                  
+                    <canvas class="statistikTransaksi"></canvas>
+                </div>
             </div>
-            
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        const getTotalTransactionAllMonth = async () => {
+            const ctx =  document.querySelector(".statistikTransaksi");
+            const response = await fetch('{{ route("transaksi-month") }}');
+            const data = await response.json();
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Jumlah Suara',
+                        data:data.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ],
+                        
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }   
+        const getUserChart = async () => {
+            const ctx = document.querySelector('.statistikUser').getContext('2d');
+            const response = await fetch('{{ route("user-month") }}');
+            const data = await response.json();
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Jumlah Suara',
+                        data:data.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ],
+                        
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            getUserChart();    
+            getTotalTransactionAllMonth();
+        });
+    </script>
+
 @endsection

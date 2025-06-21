@@ -36,7 +36,8 @@ class DashboardController extends Controller
             "totalBerkas" => $data->count(),
             "totalBerkasBulanIni" => BerkasUser::whereYear('created_at', Carbon::now()->year)
             ->whereMonth('created_at', Carbon::now()->month)
-            ->count()
+            ->count(),
+            
         ]);
         
     }

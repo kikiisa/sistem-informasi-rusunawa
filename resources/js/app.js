@@ -16,10 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
-
 new Editor({
-    element: document.querySelector('.element'),
+    element: document.querySelector(".element"),
     extensions: [StarterKit],
-    content: '<p>Hello World!</p>',
-})
+    content: "<p>Hello World!</p>",
+});

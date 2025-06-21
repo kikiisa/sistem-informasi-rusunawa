@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApiBerkasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('berkas', [App\Http\Controllers\ApiBerkasController::class, 'getBerkasByUserAndPerizinan']);
 Route::post('berkas', [App\Http\Controllers\ApiBerkasController::class, 'uploadBerkas']);
+
+Route::get("user-month",[ApiBerkasController::class,"getUserAllMonth"])->name("user-month");
+Route::get("transaksi-month",[ApiBerkasController::class,"getAllTransaksiMonth"])->name("transaksi-month");

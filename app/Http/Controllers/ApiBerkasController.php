@@ -3,20 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\BerkasUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class ApiBerkasController extends Controller
 {
     private $path = "data/berkas/";
     
+    public function getUserAllMonth(Request $request)
+    {
+        $year = now()->year;
+        $users = DB::table('users')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->whereYear('created_at', $year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        $labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $data = array_fill(0, 12, 0);
+
+        foreach ($users as $user) {
+            $index = $user->month - 1; // karena index array mulai dari 0
+            $data[$index] = $user->total;
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $data,
+        ]);
+        
+    }
+
+    public function getAllTransaksiMonth(Request $request)
+    {
+        $year = now()->year;
+        $users = DB::table('orders')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->whereYear('created_at', $year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        $labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $data = array_fill(0, 12, 0);
+
+        foreach ($users as $user) {
+            $index = $user->month - 1; // karena index array mulai dari 0
+            $data[$index] = $user->total;
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $data,
+        ]);
+    }
     public function getBerkasByUserAndPerizinan(Request $request)
     {
         $id_user = $request->get("id_user");
         $id_perizinan = $request->get("id_perizinan");
         $data = BerkasUser::with(["user", "perizinan_file"])->where("id_perizinan_file", $id_perizinan)->where("id_user", $id_user)->first();
-        
         if($data)
         {
             return response()->json([
