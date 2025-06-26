@@ -17,7 +17,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite(['resources/css/app.css'])
-    
+
 </head>
 
 <body class="bg-slate-100">
@@ -114,20 +114,21 @@
                             <span class="ms-3">Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('payment.index') }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
-                                <path
-                                    d="M2 8v4.001h1V18H2v3h16l3 .001V21h1v-3h-1v-5.999h1V8L12 2 2 8zm4 10v-5.999h2V18H6zm5 0v-5.999h2V18h-2zm7 0h-2v-5.999h2V18zM14 8a2 2 0 1 1-4.001-.001A2 2 0 0 1 14 8z">
-                                </path>
-                            </svg>
-                            <span class="ms-3">Payment</span>
-                        </a>
-                    </li>
-
+                    @if (Auth::guard('operator')->user()->role != 'pimpinan')
+                        <li>
+                            <a href="{{ route('payment.index') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                                    <path
+                                        d="M2 8v4.001h1V18H2v3h16l3 .001V21h1v-3h-1v-5.999h1V8L12 2 2 8zm4 10v-5.999h2V18H6zm5 0v-5.999h2V18h-2zm7 0h-2v-5.999h2V18zM14 8a2 2 0 1 1-4.001-.001A2 2 0 0 1 14 8z">
+                                    </path>
+                                </svg>
+                                <span class="ms-3">Payment</span>
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <a href="{{ route('permohonan.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -161,21 +162,23 @@
                             </svg>
                         </button>
                         <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('kamar.index') }}"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
-                                    Kamar</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('perizinan.index') }}"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
-                                    Perizinan</a>
-                            </li>
-                            <li>
-                                <a href="{{ Route('operator.index') }}"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
-                                    Operator</a>
-                            </li>
+                            @if (Auth::guard('operator')->user()->role != 'pimpinan')
+                                <li>
+                                    <a href="{{ route('kamar.index') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
+                                        Kamar</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('perizinan.index') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
+                                        Perizinan</a>
+                                </li>
+                                <li>
+                                    <a href="{{ Route('operator.index') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
+                                        Operator</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ Route('user.index') }}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Master
@@ -219,6 +222,5 @@
         </section>
     </main>
     @vite(['resources/js/app.js'])
-    
 </body>
 </html>

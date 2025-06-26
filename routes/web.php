@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BerkasUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\ManagementKontrak;
 use App\Http\Controllers\OperatorController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileOperator;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WhatsappsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +34,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/",[FrontController::class,"index"])->name("home");
 
-Route::get("/",[AuthController::class,'LoginMember'])->name('login');
-Route::post("/",[AuthController::class,'StoreLogin'])->name('login.store');
+
+Route::get("/login",[AuthController::class,'LoginMember'])->name('login');
+Route::post("/login",[AuthController::class,'StoreLogin'])->name('login.store');
 
 Route::get("/register",[RegisterController::class,'index'])->name('register');
 Route::post("/register",[RegisterController::class,'store'])->name('register.store');
@@ -50,9 +54,7 @@ Route::prefix('account')->group(function () {
 
         Route::get("riwayat-kontrak",[OrderController::class,'riwayat_kontrak'])->name('riwayat-kontrak');
         Route::get("detail-kontrak/{id}",[OrderController::class,'show'])->name('riwayat-kontrak.detail');
-        Route::put("update-kontrak/{id}",[OrderController::class,'update'])->name('riwayat-kontrak.update');
-        
-        
+        Route::put("update-kontrak/{id}",[OrderController::class,'update'])->name('riwayat-kontrak.update');   
     });
 });
 
@@ -76,4 +78,4 @@ Route::prefix('admin')->group(function () {
 });
 
 
-
+Route::post("send-whatsapps",[WhatsappsController::class,'sendWhatsapps'])->name('send.whatsapp');

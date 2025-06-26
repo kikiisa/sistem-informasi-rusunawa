@@ -75,7 +75,7 @@
                 data: {
                     labels: data.labels,
                     datasets: [{
-                        label: 'Jumlah Suara',
+                        label: 'Jumlah Transaksi',
                         data:data.data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',
@@ -108,7 +108,7 @@
                 data: {
                     labels: data.labels,
                     datasets: [{
-                        label: 'Jumlah Suara',
+                        label: 'Jumlah Pengguna',
                         data:data.data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',

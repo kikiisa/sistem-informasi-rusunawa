@@ -10,11 +10,11 @@ function expired($awal, $akhir)
     if ($hariIni->lessThanOrEqualTo($tanggalAkhir)) {
         // Masih aktif
         $sisaHari = $hariIni->diffInDays($tanggalAkhir);
-        return "$sisaHari hari lagi";
+        return $sisaHari;
     } else {
         // Sudah habis
         $selisihHari = $tanggalAkhir->diffInDays($hariIni);
-        return "$selisihHari hari lalu";
+        return $selisihHari;
     }
 }
 
