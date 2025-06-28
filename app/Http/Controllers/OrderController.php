@@ -31,6 +31,7 @@ class OrderController extends Controller
             $data = $query->get();
             return view('admin.order.rekap', compact('data'));
         }
+        $data = $query->get();
         return view('admin.order.index', compact('data'));
     }
 
