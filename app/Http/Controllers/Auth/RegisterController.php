@@ -42,7 +42,7 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'password' => bcrypt($request->password)
         ])){
-            return redirect()->route('login')->with('success', 'Register Berhasil, Silahkan Cek Email Anda Untuk Memverifikasi Akun Anda');
+            return redirect()->route('login')->with('success', 'Register Berhasil, Silahkan Hubungi Admin Untuk Mengaktifkn Akun Anda');
         };
         return redirect()->back()->with('error', 'Register Gagal');
     }

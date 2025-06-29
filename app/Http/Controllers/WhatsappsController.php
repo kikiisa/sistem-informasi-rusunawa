@@ -17,10 +17,12 @@ class WhatsappsController extends Controller
     }
     public function sendWhatsapps(Request $request)
     {
-        $data = Order::with(["kamar","user"])->where("user_id",$request->id)->first();
+        $data = Order::with(["kamar","user"])->where("id",$request->id)->first();
+        
         $expired = expired($data->tanggal_order,$data->waktu_berakhir);
+        
         $pesan = "Nama : {$data->user->name} \nNo Kamar : {$data->kamar->no_kamar} \nTanggal Kontrak : {$data->tanggal_order} \n Berakhir Kontrak : {$expired}";
-     
+        
         try {
             $curl = curl_init();
             $token = "7x7sn5avNVHoKGGV1ZsU";
