@@ -19,4 +19,10 @@ class FrontController extends Controller
         }
         return view('front.index',compact("data"));
     }
+
+    public function detail_kamar($id)
+    {
+         $data = Kamar::all()->where("uuid", $id)->first();
+        return view('front.detail',compact("data"));
+    }
 }

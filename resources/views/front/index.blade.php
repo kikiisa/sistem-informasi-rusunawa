@@ -21,7 +21,7 @@
     <x-navbar />
     <section class=" dark:bg-gray-900 bg-white mt-12 lg:w-1/2 mx-auto">
         <div class="flex flex-col justify-center font-light ">
-            <h1 class="text-center text-3xl font-bold">Selamat Datang Di Sipr</h1>
+            <h1 class="text-4xl font-bold text-center leading-tight tracking-tight bg-gradient-to-r from-yellow-600 via-green-500 to-indigo-600  text-transparent bg-clip-text">Selamat Datang Di SIPR</h1>
             <span class="text-center">Temukan Informasi Kamar dan Penginapan Anda Disini.</span>
         </div>
         <form class="w-100 mx-auto mt-8" method="GET">

@@ -45,9 +45,25 @@ class ManagementKontrak extends Controller
 
     public function store(Request $request)
     {
+        $checkOrder = Order::where("user_id", Auth::user()->id);
         
-        if (Order::where("user_id", Auth::user()->id)->exists()) {
-            return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
+        // jika order masih ada
+        if ($checkOrder->exists()) {
+           $getCheckOrder = $checkOrder->first();
+           if(expired($getCheckOrder->tanggal_order,$getCheckOrder->waktu_berakhir) > 0)
+           {
+               return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
+           }
+        }
+
+        // jika kamar ada yang pesan
+        $cekkamar = Order::where("kamar_id", $request->id_kamar)->first();
+        if ($cekkamar) {
+            // dd(expired($cekkamar->tanggal_order,$cekkamar->waktu_berakhir));
+            if(expired($cekkamar->tanggal_order,$cekkamar->waktu_berakhir) != 0)
+            {
+                return redirect()->route("management-kontrak.index")->with("error", "Kamar Sudah Di Pesan");
+            }
         }
         if ($request->hasFile("bukti_pembayaran")) {
 

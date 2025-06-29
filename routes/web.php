@@ -35,7 +35,7 @@ Route::get('/', function () {
 });
 
 Route::get("/",[FrontController::class,"index"])->name("home");
-
+Route::get("/detail-kamar/{id}",[FrontController::class,"detail_kamar"])->name("detail");
 
 Route::get("/login",[AuthController::class,'LoginMember'])->name('login');
 Route::post("/login",[AuthController::class,'StoreLogin'])->name('login.store');

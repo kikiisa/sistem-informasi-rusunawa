@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
-
     private $path = "data/transaksi/";
     public function index(Request $request)
     {
@@ -50,9 +49,9 @@ class OrderController extends Controller
     {
         $data = Order::find($id);
         $room = Kamar::find($data->kamar_id);
-        $room->update([
-            "status" => "tersedia"
-        ]);
+        // $room->update([
+        //     "status" => "tersedia"
+        // ]);
         if (File::exists($this->path . $data->file)) {
             File::delete($this->path . $data->file);
         }

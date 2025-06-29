@@ -49,7 +49,7 @@
                             <tr>
                                 <td class="font-semibold text-gray-700 dark:text-white">Sisa Kontrak</td>
                                 <td>:
-                                    {{expired($data->tanggal_order,$data->waktu_berakhir)}}         
+                                    {{expired($data->tanggal_order,$data->waktu_berakhir)}}  Hari       
                                 </td>
                             </tr>
                             <tr>
