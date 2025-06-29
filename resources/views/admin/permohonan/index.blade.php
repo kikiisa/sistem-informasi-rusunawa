@@ -3,8 +3,7 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="title mb-4">
-                <div class="flex flex-row gap-2">
-                    
+                <div class="flex flex-row gap-2">                    
                     <h1 class="font-bold text-2xl">Daftar Permohonan</h1>
                 </div>
             </div>
@@ -17,16 +16,13 @@
                         <th scope="col" class="px-6 py-3">
                             Nama Lengkap
                         </th>
-
                         <th scope="col" class="px-6 py-3">
                             Berkas Masuk
                         </th>
 
                         <th scope="col" class="px-6 py-3">
                             Status Verifikasi
-
                         </th>
-
                         <th scope="col" class="px-6 py-3">
                             Action
                         </th>
@@ -46,7 +42,7 @@
                             <td class="px-6 py-4">
                                 <span
                                     class=" text-sm bg-blue-100 text-blue-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                    {{ $item->berkas->count() }}
+                                {{ $item->berkas->count() }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
@@ -54,12 +50,10 @@
                                     $data = collect($item->berkas);
                                     $approved = $data->where('status', 'approved')->count();
                                 @endphp
-                                
                                 @if ($approved ==  $perizinan)
                                     <span class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
                                         Memenuhi Syarat
                                     </span>
-                                
                                 @else
                                     <span class=" text-sm bg-yellow-100 text-yellow-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                                         Menunggu Verifikasi
@@ -70,11 +64,11 @@
                                 <a href="{{ route('permohonan.edit', $item->id) }}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
                                     
-                                    @if ($approved ==  $perizinan)
+                                    {{-- @if ($approved ==  $perizinan)
                                     <a href="{{ route('permohonan.edit', $item->id) }}"
                                         class="text-white bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:focus:ring-yellow-400">Cetak Surat Izin</a>
                                         
-                                    @endif
+                                    @endif --}}
                             </td>
                         </tr>
                     @endforeach
