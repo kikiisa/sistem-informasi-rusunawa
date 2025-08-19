@@ -1,4 +1,4 @@
-<nav class="bg-white w-1/2 mx-auto dark:bg-gray-900 shadow-md sticky top-0 z-20 border-b border-gray-200 dark:border-gray-700">
+<nav class="bg-white lg:w-1/2 mx-auto sm:w-full dark:bg-gray-900 shadow-md sticky top-0 z-20 border-b border-gray-200 dark:border-gray-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-3">
         
         <!-- Logo -->
