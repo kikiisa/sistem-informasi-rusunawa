@@ -10,48 +10,69 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap"
         rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>SIPR</title>
+    <style>
+        body {
+            font-family: "Outfit", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
+
 <body>
     <x-navbar />
     <section class=" dark:bg-gray-900 bg-white mt-12 lg:w-1/2 mx-auto">
-        <div class="flex flex-col justify-center font-light ">
-            <h1 class="text-4xl font-bold text-center leading-tight tracking-tight bg-gradient-to-r from-yellow-600 via-green-500 to-indigo-600  text-transparent bg-clip-text">Selamat Datang Di SIPR</h1>
-            <span class="text-center">Temukan Informasi Kamar dan Penginapan Anda Disini.</span>
+        <div class="flex flex-col justify-center items-center text-center font-light space-y-3">
+            <h1
+                class="text-4xl md:text-5xl font-bold leading-tight tracking-tight bg-gradient-to-r from-indigo-600 via-green-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-sm">
+                Selamat Datang di SIPR
+            </h1>
+            <span class="text-gray-600 text-base md:text-lg">
+                Temukan informasi kamar & penginapan terbaik dengan mudah.
+            </span>
         </div>
-        <form class="w-100 mx-auto mt-8" method="GET">
-            <label for="default-search"
-                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+
+        <form class="w-full max-w-xl mx-auto mt-10" method="GET">
+            <label for="default-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                 </div>
-                <input type="search" 
-                    name="search"
-                    id="default-search"
-                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Cari Nomor Kamar example : 101" required />
+                <input type="search" name="search" id="default-search"
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-200 rounded-xl bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm transition"
+                    placeholder="Cari nomor kamar, contoh: 101, 202..." required />
                 <button type="submit"
-                    class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    class="absolute end-2.5 bottom-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold rounded-lg text-sm px-5 py-2 shadow-md transition">
+                    Cari
+                </button>
             </div>
         </form>
+
         @if ($data->isEmpty())
             <div class="">
                 <h1 class="text-center text-xl mt-4">Data Tidak Ditemukan</h1>
             </div>
-        @else   
+        @else
             <div class="grid lg:grid-cols-2 grid-cols-1 gap-4 mt-4 p-3 justify-center items-center">
                 @foreach ($data as $item)
-                    <x-card :item="$item"/>
+                    <x-card :item="$item" />
                 @endforeach
             </div>
         @endif
@@ -106,4 +127,5 @@
         @endif
     </section>
 </body>
+
 </html>

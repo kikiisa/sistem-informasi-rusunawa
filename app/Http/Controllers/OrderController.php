@@ -89,12 +89,12 @@ class OrderController extends Controller
                 "file" => "nullable|mimes:pdf|max:5000|sometimes",
             ]);
 
-            if ($request->status_kontrak == "approved") {
-                $kamar = Kamar::find($data->kamar_id);
-                $kamar->update([
-                    "status" => "tidak_tersedia",
-                ]);
-            }
+            // if ($request->status_kontrak == "approved") {
+            //     $kamar = Kamar::find($data->kamar_id);
+            //     $kamar->update([
+            //         "status" => "tidak_tersedia",
+            //     ]);
+            // }
             $data->update([
                 "status_order" => $request->status_kontrak,
                 "tanggal_order" => $request->tanggal_order,
