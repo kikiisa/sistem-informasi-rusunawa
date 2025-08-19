@@ -26,12 +26,12 @@
                 <span class="text-xs">Jl. Jend. Sudirman No. 64 Kota Gorontalo Telp. (0435) 824795</span>
             </div>
         </div>
-        <div class="garis lg:w-1/2 mx-auto mt-4">
+        <div class="garis lg:w-full mx-auto mt-4">
             <div class="h-1 mt-3  bg-slate-900 "></div>
             <hr class="mt-2 absolute top-2">
             <hr class="mt-1">
         </div>
-        <table class=" w-1/2 mx-auto mt-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table class=" w-full mt-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
