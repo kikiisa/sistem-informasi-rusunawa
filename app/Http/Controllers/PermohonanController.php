@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\BerkasUser;
 use App\Models\PerizinanFile;
 use App\Models\User;
+use App\Services\NotificationServices;
 use Illuminate\Http\Request;
 
 class PermohonanController extends Controller
 {
+    private $notif;
+    public function __construct()
+    {
+        $this->notif = new NotificationServices();
+    }
     /**
      * Display a listing of the resource.
      */
@@ -48,7 +54,8 @@ class PermohonanController extends Controller
     public function edit(string $id)
     {
         $data = BerkasUser::with(["user", "perizinan_file"])->where("id_user", $id)->get();
-        return view("admin.permohonan.edit",compact("data"));   
+        $id_user = $id;
+        return view("admin.permohonan.edit",compact("data","id_user"));   
     }
 
     /**
@@ -56,13 +63,14 @@ class PermohonanController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
         $data = BerkasUser::findOrFail($id);
         
         $data->update([
             "status" => $request->status,
             "keterangan" => $request->keterangan,
         ]);
-
+        $this->notif->sendNotification($request->user_id, "Verifikasi", "Permohonan Anda {$data->berkas} telah di {$data->status}");
         if($data)
         {
             return redirect()->back()->with("success", "Data berhasil diupdate");

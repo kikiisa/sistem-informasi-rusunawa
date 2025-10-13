@@ -13,8 +13,13 @@ class PerizinanFile extends Model
         'uuid',
         'nama_file',
         'deskripsi',
-        
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        
+    }
 
 
 }

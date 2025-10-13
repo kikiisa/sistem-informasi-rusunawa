@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\ManagementKontrak;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -55,6 +56,9 @@ Route::prefix('account')->group(function () {
         Route::get("riwayat-kontrak",[OrderController::class,'riwayat_kontrak'])->name('riwayat-kontrak');
         Route::get("detail-kontrak/{id}",[OrderController::class,'show'])->name('riwayat-kontrak.detail');
         Route::put("update-kontrak/{id}",[OrderController::class,'update'])->name('riwayat-kontrak.update');   
+
+
+        Route::get("read-notif",[NotificationController::class,'delete'])->name('read-notif');
     });
 });
 

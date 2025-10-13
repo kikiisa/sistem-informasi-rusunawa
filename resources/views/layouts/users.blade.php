@@ -20,55 +20,118 @@
 </head>
 <body class="bg-slate-100">
     <main class="lg:w-1/2 mx-auto p-4">
-        <nav class=" bg-transparent border-gray-200 dark:bg-gray-900">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="{{ route('member.dashboard') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/LOGO_KOTA_GORONTALO.png/792px-LOGO_KOTA_GORONTALO.png"
-                        class="h-8 rounded-full" alt="Flowbite Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIPR</span>
-                </a>
-                <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <button href=""
-                        class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                        id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                        data-dropdown-placement="bottom">
-                        <span class="sr-only">Open user menu</span>
-                        <div class="w-10 h-10 rounded-full p-2 text-white flex items-center justify-center">
-                            <span class="text-sm font-medium">
-                                {{ get_initials(Auth::user()->name) }}
-                            </span>
-                        </div>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600"
-                        id="user-dropdown">
-                        <div class="px-4 py-3">
-                            <span class="block text-sm text-gray-900 dark:text-white">{{ auth()->user()->name }}</span>
-                            <span
-                                class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ auth()->user()->email }}</span>
-                        </div>
-                        <ul class="py-2" aria-labelledby="user-menu-button">
-                            <li>
-                                <a href="{{ route('member.dashboard') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Beranda</a>
-                            </li>
+        @php
+    // Ganti dengan logika Anda untuk mengambil jumlah notifikasi yang belum dibaca
+    $unreadNotificationsCount = 5; // Contoh nilai
+@endphp
 
-                            <li>
-                                <a href="{{ route('profile.index') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Pengaturan
-                                    Akun</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('logout.member') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                    Keluar
-                                </a>
-                            </li>
-                        </ul>
+<nav class="bg-transparent border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="{{ route('member.dashboard') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/LOGO_KOTA_GORONTALO.png/792px-LOGO_KOTA_GORONTALO.png"
+                class="h-8 rounded-full" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIPR</span>
+        </a>
+        
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
+            {{-- Loneng Notifikasi --}}
+            <button type="button" 
+                class="p-2 me-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 relative" 
+                id="notification-button" 
+                aria-expanded="false" 
+                data-dropdown-toggle="notification-dropdown" 
+                data-dropdown-placement="bottom-end">
+                
+                {{-- Icon Lonceng --}}
+                
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                </svg>
+
+                {{-- Badge Notifikasi (hanya tampil jika ada notifikasi belum dibaca) --}}
+                @if ($notifictions->count() > 0)
+                    <div class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-1 dark:border-gray-900">
+                        {{ $notifictions->count() }}
                     </div>
+                
+                @endif
+                            </button>
+            
+            {{-- Dropdown Notifikasi (Isi disesuaikan kebutuhan) --}}
+            <div id="notification-dropdown" class="z-50 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 md:w-80">
+                <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+                    Notifikasi
                 </div>
+                <div class="divide-y divide-gray-100 dark:divide-gray-700 max-h-60 overflow-y-auto">
+                    {{-- Contoh Item Notifikasi --}}
+                    @forelse ($notifictions as $item)     
+                        <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <div class="w-full ps-3">
+                                <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                                    <span class="font-semibold text-gray-900 dark:text-white">{{ $item->judul }}</span> {{ $item->isi }}
+                                </div>
+                                <div class="text-xs text-blue-600 dark:text-blue-500">
+                                    {{ $item->created_at->diffForHumans() }}
+                                </div>
+                            </div>
+                        </a>
+                    @empty
+                        <p class="text-center text-gray-500 text-sm">belum ada notifikasi</p>
+                    @endforelse
+                    
+                </div>
+                <a href="{{ route('read-notif') }}" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                    Lihat semua notifikasi
+                </a>
             </div>
-        </nav>
+            {{-- Akhir Loneng Notifikasi --}}
+
+
+            {{-- Tombol User (dipindahkan ke bawah tombol notifikasi) --}}
+            <button href=""
+                class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom">
+                <span class="sr-only">Open user menu</span>
+                <div class="w-10 h-10 rounded-full p-2 text-white flex items-center justify-center">
+                    <span class="text-sm font-medium">
+                        {{ get_initials(Auth::user()->name) }}
+                    </span>
+                </div>
+            </button>
+            
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600"
+                id="user-dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white">{{ auth()->user()->name }}</span>
+                    <span
+                        class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ auth()->user()->email }}</span>
+                </div>
+                <ul class="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                        <a href="{{ route('member.dashboard') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Beranda</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('profile.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Pengaturan
+                            Akun</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout.member') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Keluar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {{-- Akhir Dropdown menu User --}}
+
+        </div>
+    </div>
+</nav>
         <section class="content m-4">
             <!-- Breadcrumb -->
             <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"

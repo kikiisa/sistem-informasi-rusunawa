@@ -1,12 +1,14 @@
 @extends('layouts.admin',["title" => "Edit Permohonan"])
 @section('content')
     <div class="p-4 sm:ml-64">
+     
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <h1 class="mb-2 text-2xl font-semibold">Berkas Pemohon</h1>
             <div class="flex flex-col gap-3">
                 @forelse ($data as $item)
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white">
                         <h1 class="font-bold">{{ $item['perizinan_file']->nama_file }}</h1>
+                        
                         <div class="stat flex lg:flex-row flex-wrap  mt-2 mb-3">
                             <span
                                 class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-sm me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
@@ -45,6 +47,7 @@
                             @csrf
                             @method("PUT")
                             <div class="form-group">
+                                <input type="text" name="user_id" value="{{ $id_user }}" hidden>
                                 <label for="status"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Status
                                     Berkas</label>

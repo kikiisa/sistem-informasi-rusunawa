@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kamar;
 use App\Models\Order;
+use App\Services\NotificationServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -11,6 +12,12 @@ use Illuminate\Support\Facades\File;
 class OrderController extends Controller
 {
     private $path = "data/transaksi/";
+    private $notification;
+
+    public function __construct()
+    {
+        $this->notification = new NotificationServices();
+    }
     public function index(Request $request)
     {
         $query = Order::with(["kamar", "user"]);
@@ -49,9 +56,6 @@ class OrderController extends Controller
     {
         $data = Order::find($id);
         $room = Kamar::find($data->kamar_id);
-        // $room->update([
-        //     "status" => "tersedia"
-        // ]);
         if (File::exists($this->path . $data->file)) {
             File::delete($this->path . $data->file);
         }
@@ -88,13 +92,8 @@ class OrderController extends Controller
                 "waktu_berakhir" => "nullable|date|sometimes",
                 "file" => "nullable|mimes:pdf|max:5000|sometimes",
             ]);
-
-            // if ($request->status_kontrak == "approved") {
-            //     $kamar = Kamar::find($data->kamar_id);
-            //     $kamar->update([
-            //         "status" => "tidak_tersedia",
-            //     ]);
-            // }
+            $this->notification->sendNotification($data->user_id, "Status Kontrak", "Status Kontrak Anda Telah Di {$request->status_kontrak}");
+            
             $data->update([
                 "status_order" => $request->status_kontrak,
                 "tanggal_order" => $request->tanggal_order,
