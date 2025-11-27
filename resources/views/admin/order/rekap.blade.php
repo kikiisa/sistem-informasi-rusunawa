@@ -26,12 +26,54 @@
                 <span class="text-xs">Jl. Jend. Sudirman No. 64 Kota Gorontalo Telp. (0435) 824795</span>
             </div>
         </div>
+
         <div class="garis lg:w-full mx-auto mt-4">
             <div class="h-1 mt-3  bg-slate-900 "></div>
             <hr class="mt-2 absolute top-2">
             <hr class="mt-1">
         </div>
-        <table class=" w-full mt-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <h1 class="mt-8 font-bold text-xl ">Laporan Pembayaran Sewa Kamar</h1>
+        @php
+            $periode = 'Semua Periode';
+            $tahun = request()->tahun;
+            $bulan = request()->bulan;
+
+            if (isset($tahun) && !empty($tahun)) {
+                $periode = 'Tahun ' . $tahun;
+
+                if (isset($bulan) && !empty($bulan)) {
+                    // Array untuk mengkonversi angka bulan ke nama bulan dalam Bahasa Indonesia
+                    $nama_bulan = [
+                        1 => 'Januari',
+                        2 => 'Februari',
+                        3 => 'Maret',
+                        4 => 'April',
+                        5 => 'Mei',
+                        6 => 'Juni',
+                        7 => 'Juli',
+                        8 => 'Agustus',
+                        9 => 'September',
+                        10 => 'Oktober',
+                        11 => 'November',
+                        12 => 'Desember',
+                    ];
+
+                    // Mengambil nama bulan dari array, pastikan bulan adalah angka integer
+                    $bulan_indonesia = $nama_bulan[(int) $bulan] ?? '';
+
+                    if (!empty($bulan_indonesia)) {
+                        $periode = $bulan_indonesia . ' ' . $tahun;
+                    }
+                }
+            }
+        @endphp
+        <h4 class="mb-4"> 
+            @if (request()->bulan && request()->tahun)
+                Periode
+            @endif
+            {{ $periode }}
+        </h4>
+        <table class=" w-full mt-8 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -40,13 +82,19 @@
                     <th scope="col" class="px-6 py-3">
                         Nama
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nomor Kamar
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tanggal Registrasi
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Kontrak
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tanggal Bayar
+                    </th>
 
-                    <th scope="col" class="px-6 py-3">
-                        Sisa Waktu
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Status Kontrak
-                    </th>
 
                 </tr>
             </thead>
@@ -60,12 +108,25 @@
                         </th>
                         <td class="px-6 py-4">
                             {{ $item->user->name }}
+
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $item->kamar->no_kamar }} / Lantai {{ $item->kamar->lt_kamar }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ \Carbon\Carbon::parse($item->tanggal_order)->translatedFormat('d F Y') }}
                         </td>
                         <td class="px-6 py-4">
 
                             {{ expired($item->tanggal_order, $item->waktu_berakhir) }} Hari
+
                         </td>
                         <td class="px-6 py-4">
+
+                            {{ \Carbon\Carbon::parse($item->waktu_berakhir)->translatedFormat('d F Y') }}
+
+                        </td>
+                        {{-- <td class="px-6 py-4">
                             @switch($item->status_order)
                                 @case($item->status_order = 'pending')
                                     <span
@@ -86,16 +147,14 @@
 
                                 @default
                             @endswitch
-                        </td>
+                        </td> --}}
 
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    <script>
-        window.print();
-    </script>
+
 </body>
 
 </html>

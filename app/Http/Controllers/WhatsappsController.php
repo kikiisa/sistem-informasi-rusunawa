@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\FonteServices;
+use App\Services\NotificationServices;
 use Illuminate\Http\Request;
 
 class WhatsappsController extends Controller
 {
     private $fonteServices;
-
+    private $notif;
     public function __construct(FonteServices $fonteServices)
     {
         $this->fonteServices = $fonteServices;
+        $this->notif = new NotificationServices();
     }
     public function sendWhatsapps(Request $request)
     {
@@ -21,8 +23,8 @@ class WhatsappsController extends Controller
         
         $expired = expired($data->tanggal_order,$data->waktu_berakhir);
         
-        $pesan = "Nama : {$data->user->name} \nNo Kamar : {$data->kamar->no_kamar} \nTanggal Kontrak : {$data->tanggal_order} \n Berakhir Kontrak : {$expired}";
-        
+        $pesan = "Nama : {$data->user->name} \nNo Kamar : {$data->kamar->no_kamar} \nTanggal Kontrak : {$data->tanggal_order} \n Berakhir Kontrak / Jatuh Tempo : {$expired} Hari";
+        $this->notif->sendNotification($data->user->id, "Kontrak", $pesan   );
         try {
             $curl = curl_init();
             $token = "7x7sn5avNVHoKGGV1ZsU";

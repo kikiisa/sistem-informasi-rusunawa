@@ -64,13 +64,12 @@ class PermohonanController extends Controller
     public function update(Request $request, string $id)
     {
         
-        $data = BerkasUser::findOrFail($id);
-        
+        $data = BerkasUser::with("perizinan_file")->findOrFail($id);
         $data->update([
             "status" => $request->status,
             "keterangan" => $request->keterangan,
         ]);
-        $this->notif->sendNotification($request->user_id, "Verifikasi", "Permohonan Anda {$data->berkas} telah di {$data->status}");
+        $this->notif->sendNotification($request->user_id, "Verifikasi", "Permohonan Anda {$data->perizinan_file->nama_file} telah di {$data->status}");
         if($data)
         {
             return redirect()->back()->with("success", "Data berhasil diupdate");
