@@ -18,7 +18,7 @@
                             </option>
                         @endforeach
                     </select>
-    
+
                     <select name="tahun" class="border border-gray-300 rounded px-3 py-2 w-100">
                         <option value="">-- Pilih Tahun --</option>
                         @foreach (range(date('Y') - 5, date('Y') + 1) as $t)
@@ -26,12 +26,13 @@
                                 {{ $t }}</option>
                         @endforeach
                     </select>
-    
-                    <button type="submit" name="cetak" value="true" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+
+                    <button type="submit" name="cetak" value="true"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
                         Report
                     </button>
                 </form>
-               
+
             </div>
 
             <table id="data-table" class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -47,8 +48,12 @@
                         <th scope="col" class="px-6 py-3">
                             Sisa Waktu
                         </th>
+
                         <th scope="col" class="px-6 py-3">
                             Status Kontrak
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status Expired
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -92,6 +97,24 @@
                                     @default
                                 @endswitch
                             </td>
+                            <td class="px-6 py-4">
+                                @php
+                                    $expired = now()->gte($item->waktu_berakhir);
+                                    $status = $expired ? 'expired' : 'aktif';
+                                @endphp
+
+                                @if ($expired)
+                                    <span class="px-3 py-1 text-sm font-semibold text-white bg-red-600 rounded-full">
+                                        Kontrak Berakhir
+                                    </span>
+                                    
+                                @else
+                                    <span class="px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+                                        Berlaku
+                                    </span>
+                                @endif
+                            </td>
+
                             <td class="px-6 py-4 flex flex-wrap">
                                 <form action="{{ route('order.destroy', $item->id) }}" method="post">
 
