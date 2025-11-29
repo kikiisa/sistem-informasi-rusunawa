@@ -174,44 +174,60 @@
             <!-- Room Cards -->
             <div id="roomsContainer">
                 @if ($data->isEmpty())
-                  <div id="emptyState" class="text-center py-16">
-                    <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                    <div id="emptyState" class="text-center py-16">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Data Tidak Ditemukan</h3>
+                        <p class="text-gray-600">Maaf, kamar yang Anda cari tidak tersedia saat ini</p>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Data Tidak Ditemukan</h3>
-                    <p class="text-gray-600">Maaf, kamar yang Anda cari tidak tersedia saat ini</p>
-                </div>
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Sample Room Card 1 -->
                         @foreach ($data as $item)
                             <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                                <div class="h-48 bg-gradient-to-br from-indigo-400 to-purple-500 relative">
+                                <div class="h-32 bg-gradient-to-br from-indigo-400 to-purple-500 relative">
+
+                                    <!-- Ikon Rumah -->
+                                    <div class="absolute top-4 left-4 bg-white/30 backdrop-blur-sm p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3 10.5L12 4l9 6.5M4.5 10.5V20h15v-9.5M9 20v-5h6v5" />
+                                        </svg>
+                                    </div>
+
+                                    <!-- Status Badge -->
                                     <div
                                         class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-indigo-600">
-
                                         @if ($item->status == 'tersedia')
                                             <span>Tersedia</span>
                                         @else
                                             <span>Tidak Tersedia</span>
                                         @endif
-
                                     </div>
+
                                 </div>
+
                                 <div class="p-6">
                                     <div class="flex items-center justify-between mb-3">
                                         <h3 class="text-2xl font-bold text-gray-800">Kamar {{ $item->no_kamar }}</h3>
                                         <span class="text-indigo-600 font-semibold">Lantai {{ $item->lt_kamar }}</span>
                                     </div>
-                                    <p class="text-gray-600 mb-4">{{ $item->keterangan }}</p>
-                                    <div class="flex items-center justify-between mb-4">
 
-                                        <span class="text-2xl font-bold text-indigo-600">Rp
-                                            {{ number_format($item->harga, 0, ',', '.') }}</span>
+                                    <p class="text-gray-600 mb-4">{{ $item->keterangan }}</p>
+
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="text-2xl font-bold text-indigo-600">
+                                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                        </span>
                                     </div>
-                                    
                                 </div>
                             </div>
                         @endforeach
@@ -220,54 +236,54 @@
             </div>
 
             <!-- Pagination -->
-              @if ($data->hasPages())
-            <div class="flex justify-center mt-6 mb-8">
-                <nav aria-label="Page navigation example">
-                    <ul class="inline-flex -space-x-px text-base h-10">
-                        {{-- Previous --}}
-                        @if ($data->onFirstPage())
-                            <li>
-                                <span
-                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-400 bg-white border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">Previous</span>
-                            </li>
-                        @else
-                            <li>
-                                <a href="{{ $data->previousPageUrl() }}"
-                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                            </li>
-                        @endif
-
-                        {{-- Page numbers --}}
-                        @foreach ($data->links()->elements[0] as $page => $url)
-                            @if ($page == $data->currentPage())
+            @if ($data->hasPages())
+                <div class="flex justify-center mt-6 mb-8">
+                    <nav aria-label="Page navigation example">
+                        <ul class="inline-flex -space-x-px text-base h-10">
+                            {{-- Previous --}}
+                            @if ($data->onFirstPage())
                                 <li>
-                                    <span aria-current="page"
-                                        class="flex items-center justify-center px-4 h-10 text-indigo-600 border border-gray-300 indigo50 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                    <span
+                                        class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-400 bg-white border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">Previous</span>
                                 </li>
                             @else
                                 <li>
-                                    <a href="{{ $url }}"
-                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                    <a href="{{ $data->previousPageUrl() }}"
+                                        class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                                 </li>
                             @endif
-                        @endforeach
 
-                        {{-- Next --}}
-                        @if ($data->hasMorePages())
-                            <li>
-                                <a href="{{ $data->nextPageUrl() }}"
-                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                            </li>
-                        @else
-                            <li>
-                                <span
-                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-400 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">Next</span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
-            </div>
-        @endif
+                            {{-- Page numbers --}}
+                            @foreach ($data->links()->elements[0] as $page => $url)
+                                @if ($page == $data->currentPage())
+                                    <li>
+                                        <span aria-current="page"
+                                            class="flex items-center justify-center px-4 h-10 text-indigo-600 border border-gray-300 indigo50 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $url }}"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Next --}}
+                            @if ($data->hasMorePages())
+                                <li>
+                                    <a href="{{ $data->nextPageUrl() }}"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                </li>
+                            @else
+                                <li>
+                                    <span
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-400 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">Next</span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
+                </div>
+            @endif
             {{-- <div class="flex justify-center mt-12">
                 <nav class="inline-flex rounded-2xl shadow-lg overflow-hidden bg-white">
                     <button class="px-4 py-3 text-gray-500 hover:bg-gray-50 font-medium transition">Previous</button>
@@ -289,7 +305,7 @@
                     class="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">SIPR</span>
             </div>
             <p class="text-gray-400 mb-4">Platform Sistem Informasi Penginapan & Reservasi Terpercaya</p>
-            
+
             <p class="text-gray-500 text-sm">© {{ date('Y') }} SIPR. All rights reserved.</p>
         </div>
     </footer>

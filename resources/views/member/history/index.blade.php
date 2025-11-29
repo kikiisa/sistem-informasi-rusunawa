@@ -23,8 +23,11 @@
                             <th scope="col" class="px-6 py-3">
                                 Nomor Kamar
                             </th>
+                             <th scope="col" class="px-6 py-3">
+                                Status Transaksi
+                            </th>
                             <th scope="col" class="px-6 py-3">
-                                Status
+                                Status Berakhir
                             </th>
 
                             <th scope="col" class="px-6 py-3">
@@ -44,7 +47,7 @@
                                     {{ $item->kamar->no_kamar }}
                                 </td>
 
-                                <td class="px-6 py-4">
+                                 <td class="px-6 py-4">
                                     @switch($item->status_order)
                                         @case('pending')
                                             <span
@@ -73,7 +76,24 @@
                                             </span>
                                     @endswitch
 
-                                </td>
+                                </td> 
+                                  <td class="px-6 py-4">
+                                @php
+                                    $expired = now()->gte($item->waktu_berakhir);
+                                    $status = $expired ? 'expired' : 'aktif';
+                                @endphp
+
+                                @if ($expired)
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
+                                        Berakhir
+                                    </span>
+                                    
+                                @else
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                                        Berlaku
+                                    </span>
+                                @endif
+                            </td>
                                 <td class="px-6 py-4 flex flex-wrap">
                                     
                                     <a href="{{ route('riwayat-kontrak.detail', $item->id) }}"

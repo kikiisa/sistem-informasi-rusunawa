@@ -106,7 +106,6 @@ class OrderController extends Controller
     public function riwayat_kontrak()
     {
         $data = Order::with(["kamar", "user"])->where("user_id", Auth::user()->id)->get();
-
         return view('member.history.index', compact("data"));
     }
 }
