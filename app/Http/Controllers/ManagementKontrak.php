@@ -89,6 +89,9 @@ class ManagementKontrak extends Controller
                 "waktu_kontrak" => $request->masa_kontrak,
                 "file" => $nameFiles,
             ]);
+            Kamar::where("id", $request->id_kamar)->update([
+                "status" => "tidak_tersedia",
+            ]);
             return redirect()->route("management-kontrak.index")->with("info", "Kontrak Berhasil Dibuat");
         } else {
             Order::create([
