@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\PerizinanFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -32,28 +33,36 @@ class ManagementKontrak extends Controller
     public function show($id)
     {
         $validasiBerkas = collect(BerkasUser::where("id_user", Auth::user()->id)->get());
+        $statusApproved = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
         $dataPayment = Payment::all();
         $perizinan = PerizinanFile::all()->count();
         $dataApproved = ($validasiBerkas->where("status", "approved")->count());
-        if ($dataApproved == $perizinan) {
-            $data = Kamar::find($id);
-            return view("member.kontrak.detail",[
-                "data" => $data,
-                "dataPayment" => $dataPayment
-            ]);
+       
+        if ($dataApproved != $perizinan) {
+            return redirect()->route("berkas.index")->with("info", "Lengkapi Data Perizinan Terlebih Dahulu");
         }
-        return redirect()->route("berkas.index")->with("info", "Lengkapi Data Perizinan Terlebih Dahulu");
+        
+        
+        if($statusApproved->status == "rejected"){
+            return redirect()->route("berkas.index")->with("error", "Anda Belum dapa melanjutkan Pengajuan Kontrak");
+        }
+
+        $data = Kamar::find($id);
+        return view("member.kontrak.detail",[
+            "data" => $data,
+            "dataPayment" => $dataPayment
+        ]);
     }
 
     public function store(Request $request)
     {
         
         $checkOrder = Order::where("user_id", Auth::user()->id);
-        $checkStatusApprovedBerkas = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
+        // $checkStatusApprovedBerkas = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
 
-        if($checkStatusApprovedBerkas->status == "rejected"){
-            return redirect()->route("berkas.index")->with("error", "Status Berkas Anda Ditolak, Silahkan Lengkapi Berkas Anda");
-        }
+        // if($checkStatusApprovedBerkas->status == "rejected"){
+        //     return redirect()->route("berkas.index")->with("error", "Status Berkas Anda Ditolak, Silahkan Lengkapi Berkas Anda");
+        // }
 
         
         // jika order masih ada

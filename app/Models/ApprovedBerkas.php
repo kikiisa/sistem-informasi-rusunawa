@@ -11,4 +11,5 @@ class ApprovedBerkas extends Model
         'status',
         'keterangan'
     ];
+    
 }
