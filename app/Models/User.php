@@ -50,6 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(BerkasUser::class, "id_user");
     }
+    public function status_izin()
+    {
+        return $this->hasOne(ApprovedBerkas::class, "id_user");
+    }
 
     public function getInitialsAttribute()
     {

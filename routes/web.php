@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApprovedController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BerkasUserController;
@@ -56,8 +57,8 @@ Route::prefix('account')->group(function () {
         Route::get("riwayat-kontrak",[OrderController::class,'riwayat_kontrak'])->name('riwayat-kontrak');
         Route::get("detail-kontrak/{id}",[OrderController::class,'show'])->name('riwayat-kontrak.detail');
         Route::put("update-kontrak/{id}",[OrderController::class,'update'])->name('riwayat-kontrak.update');   
-
-
+        Route::get("akhiri-kontrak/{id}",[OrderController::class])->name("end-kontrak");
+        
         Route::get("read-notif",[NotificationController::class,'delete'])->name('read-notif');
     });
 });
@@ -78,8 +79,9 @@ Route::prefix('admin')->group(function () {
         // surat
         Route::get("surat-izin",[SuratController::class,'surat_izin'])->name('surat.izin');
         // end surat
+
+        Route::post("status-permohonan/{id}",[ApprovedController::class,"status_permohonan"])->name("status_permohonan");
     });
 });
-
 
 Route::post("send-whatsapps",[WhatsappsController::class,'sendWhatsapps'])->name('send.whatsapp');

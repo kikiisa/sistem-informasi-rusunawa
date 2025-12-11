@@ -1,9 +1,9 @@
-@extends('layouts.admin',["title" => "Daftar Permohonan"])
+@extends('layouts.admin', ['title' => 'Daftar Permohonan'])
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
             <div class="title mb-4">
-                <div class="flex flex-row gap-2">                    
+                <div class="flex flex-row gap-2">
                     <h1 class="font-bold text-2xl">Daftar Permohonan</h1>
                 </div>
             </div>
@@ -23,6 +23,10 @@
                         <th scope="col" class="px-6 py-3">
                             Status Verifikasi
                         </th>
+                        {{-- <th scope="col" class="px-6 py-3">
+                            Status Kelengkapan
+                        </th>
+                         --}}
                         <th scope="col" class="px-6 py-3">
                             Action
                         </th>
@@ -42,29 +46,57 @@
                             <td class="px-6 py-4">
                                 <span
                                     class=" text-sm bg-blue-100 text-blue-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                {{ $item->berkas->count() }}
+                                    {{ $item->berkas->count() }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td>
+
+                                @if ($item->status_izin->status == 'approved')
+                                    <span
+                                        class=" text-sm bg-gray-100 text-slate-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-slate-300">
+                                        Setujui
+                                    </span>
+                                @else
+                                    <span
+                                        class=" text-sm bg-red-100 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                                        Ditolak
+                                    </span>
+                                @endif
+                            </td>
+                            {{-- <td class="px-6 py-4">
                                 @php
                                     $data = collect($item->berkas);
                                     $approved = $data->where('status', 'approved')->count();
                                 @endphp
-                                @if ($approved ==  $perizinan)
+                                @if ($approved == $perizinan)
                                     <span class=" text-sm bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                        Memenuhi Syarat
+                                        Lengkap
                                     </span>
                                 @else
                                     <span class=" text-sm bg-yellow-100 text-yellow-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
-                                        Menunggu Verifikasi
+                                        Belum Lengkap
                                     </span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td class="px-6 py-4 flex flex-wrap">
                                 <a href="{{ route('permohonan.edit', $item->id) }}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
-                                    
-                                    {{-- @if ($approved ==  $perizinan)
+
+                                <form action="{{ route('status_permohonan', $item->status_izin->id) }}" method="post">
+                                    @csrf
+                                    <button
+                                        class="text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">
+                                        @php
+                                            if ($item->status_izin->status == 'approved') {
+                                                $label = 'Setuju';
+                                            } else {
+                                                $label = 'Tolak';
+                                            }
+                                        @endphp
+                                        {{ $label }}
+                                    </button>
+                                </form>
+                                {{-- @if ($approved == $perizinan)
                                     <a href="{{ route('permohonan.edit', $item->id) }}"
                                         class="text-white bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium  text-sm px-5 py-2.5 text-center rounded-lg me-2 mb-2 dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:focus:ring-yellow-400">Cetak Surat Izin</a>
                                         

@@ -20,8 +20,9 @@ class PermohonanController extends Controller
      */
     public function index()
     {
-        $data = User::with("berkas")->get();
+        $data = User::with(["berkas","status_izin"])->get();
         $perizinan = PerizinanFile::all()->count();
+        
         return view('admin.permohonan.index',compact("data","perizinan"));
     }
     /**
@@ -55,7 +56,9 @@ class PermohonanController extends Controller
     {
         $data = BerkasUser::with(["user", "perizinan_file"])->where("id_user", $id)->get();
         $id_user = $id;
+        
         return view("admin.permohonan.edit",compact("data","id_user"));   
+
     }
 
     /**

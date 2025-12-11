@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApprovedBerkas;
 use App\Models\BerkasUser;
 use App\Models\Kamar;
 use App\Models\Order;
@@ -10,6 +11,7 @@ use App\Models\PerizinanFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 use Ramsey\Uuid\Uuid;
 
 class ManagementKontrak extends Controller
@@ -45,7 +47,14 @@ class ManagementKontrak extends Controller
 
     public function store(Request $request)
     {
+        
         $checkOrder = Order::where("user_id", Auth::user()->id);
+        $checkStatusApprovedBerkas = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
+
+        if($checkStatusApprovedBerkas->status == "rejected"){
+            return redirect()->route("berkas.index")->with("error", "Status Berkas Anda Ditolak, Silahkan Lengkapi Berkas Anda");
+        }
+
         
         // jika order masih ada
         if ($checkOrder->exists()) {
@@ -55,7 +64,6 @@ class ManagementKontrak extends Controller
                return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
            }
         }
-
         // jika kamar ada yang pesan
         $cekkamar = Order::where("kamar_id", $request->id_kamar)->first();
         if ($cekkamar) {
@@ -66,7 +74,6 @@ class ManagementKontrak extends Controller
             }
         }
         if ($request->hasFile("bukti_pembayaran")) {
-
             $request->validate([
                 
                 "bukti_pembayaran" => "required|image|mimes:jpeg,png,jpg|max:2048",

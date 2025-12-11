@@ -7,12 +7,12 @@
     <title>SIPR - Sistem Informasi Penginapan & Reservasi</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             font-family: "Outfit", sans-serif;
         }
-
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }

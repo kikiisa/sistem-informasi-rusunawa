@@ -15,14 +15,12 @@ class DashboardController extends Controller
     {   
         $information = BerkasUser::with("user")->where("id_user", Auth::user()->id)->get();
         $totalPerizinan = PerizinanFile::all()->count();
-        
+       
         return view('member.dashboard.index',[
             'information' => collect($information),
             'perizinan'   => $totalPerizinan,
-           
         ]);
     }
-    
     public function admin()
     {
         $data = BerkasUser::all();
@@ -31,13 +29,11 @@ class DashboardController extends Controller
         
         return view('admin.dashboard.index',[
             "syarat" => $syarat,
-            
             "user" => $user,
             "totalBerkas" => $data->count(),
             "totalBerkasBulanIni" => BerkasUser::whereYear('created_at', Carbon::now()->year)
             ->whereMonth('created_at', Carbon::now()->month)
             ->count(),
-            
         ]);
         
     }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
+
 class OrderController extends Controller
 {
     private $path = "data/transaksi/";
@@ -18,7 +19,8 @@ class OrderController extends Controller
     {
         $this->notification = new NotificationServices();
     }
-    public function index(Request $request)
+    
+    public function index(Request $request) 
     {
         $query = Order::with(["kamar", "user"]);
 
@@ -52,6 +54,8 @@ class OrderController extends Controller
         return view('member.history.detail', compact("data"));
     }
 
+
+
     public function destroy($id)
     {
         $data = Order::find($id);
@@ -61,6 +65,11 @@ class OrderController extends Controller
         }
         $data->delete();
         return back()->with("success", "Berhasil Di Hapus");
+    }
+
+    public function end_kontrak(Request $request,$id)
+    {
+        $data = Order::find($id);
     }
     public function update(Request $request, $id)
     {
@@ -85,14 +94,13 @@ class OrderController extends Controller
             ]);
             return redirect()->route("riwayat-kontrak")->with("success", "Berhasil Di Update");
         } else {
-
             $request->validate([
                 "status_kontrak" => "required|sometimes",
                 "tanggal_order" => "nullable|date|sometimes",
                 "waktu_berakhir" => "nullable|date|sometimes",
                 "file" => "nullable|mimes:pdf|max:5000|sometimes",
             ]);
-            $this->notification->sendNotification($data->user_id, "Status Kontrak", "Status Kontrak Anda Telah Di {$request->status_kontrak}");
+            // $this->notification->sendNotification($data->user_id, "Status Kontrak", "Status Kontrak Anda Telah Di {$request->status_kontrak}");
             
             $data->update([
                 "status_order" => $request->status_kontrak,
