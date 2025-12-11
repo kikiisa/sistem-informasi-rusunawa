@@ -64,11 +64,11 @@
 
                     <!-- Pilihan Masa Kontrak -->
                     <div class="mb-4">
-                        <label for="masa_kontrak" class="block mb-1 text-sm font-medium text-gray-800 dark:text-white">Masa
+                        <label for="masa_kontrak" class="block mb-1 text-sm font-medium text-gray-800 dark:text-white">Ajukan Masa
                             Kontrak</label>
                         <select name="masa_kontrak" id="masa_kontrak"
                             class="w-full p-2.5 bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            required>
+                            required="true">
                             <option selected disabled>Pilih Waktu Kontrak</option>
                             <option value="1 bulan">1 Bulan</option>
                             <option value="3 bulan">3 Bulan</option>

@@ -37,18 +37,18 @@ class ManagementKontrak extends Controller
         $dataPayment = Payment::all();
         $perizinan = PerizinanFile::all()->count();
         $dataApproved = ($validasiBerkas->where("status", "approved")->count());
-       
+
         if ($dataApproved != $perizinan) {
             return redirect()->route("berkas.index")->with("info", "Lengkapi Data Perizinan Terlebih Dahulu");
         }
-        
-        
-        if($statusApproved->status == "rejected"){
+
+
+        if ($statusApproved->status == "rejected") {
             return redirect()->route("berkas.index")->with("error", "Anda Belum dapa melanjutkan Pengajuan Kontrak");
         }
 
         $data = Kamar::find($id);
-        return view("member.kontrak.detail",[
+        return view("member.kontrak.detail", [
             "data" => $data,
             "dataPayment" => $dataPayment
         ]);
@@ -56,35 +56,39 @@ class ManagementKontrak extends Controller
 
     public function store(Request $request)
     {
-        
+
+        $request->validate([
+            "masa_kontrak" => "required",
+        ],[
+            "masa_kontrak.required" => "Masa Kontrak Harus Diisi",
+        ]);
+
         $checkOrder = Order::where("user_id", Auth::user()->id);
-        // $checkStatusApprovedBerkas = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
+        $checkStatusApprovedBerkas = ApprovedBerkas::where("id_user", Auth::user()->id)->first();
 
-        // if($checkStatusApprovedBerkas->status == "rejected"){
-        //     return redirect()->route("berkas.index")->with("error", "Status Berkas Anda Ditolak, Silahkan Lengkapi Berkas Anda");
-        // }
+        if($checkStatusApprovedBerkas->status == "rejected"){
+            return redirect()->route("berkas.index")->with("error", "Status Berkas Anda Ditolak, Silahkan Lengkapi Berkas Anda");
+        }
 
-        
+
         // jika order masih ada
         if ($checkOrder->exists()) {
-           $getCheckOrder = $checkOrder->first();
-           if(expired($getCheckOrder->tanggal_order,$getCheckOrder->waktu_berakhir) > 0)
-           {
-               return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
-           }
+            $getCheckOrder = $checkOrder->first();
+            if (expired($getCheckOrder->tanggal_order, $getCheckOrder->waktu_berakhir) > 0) {
+                return redirect()->route("management-kontrak.index")->with("error", "Anda Sudah Mengajukan Kontrak");
+            }
         }
         // jika kamar ada yang pesan
         $cekkamar = Order::where("kamar_id", $request->id_kamar)->first();
         if ($cekkamar) {
             // dd(expired($cekkamar->tanggal_order,$cekkamar->waktu_berakhir));
-            if(expired($cekkamar->tanggal_order,$cekkamar->waktu_berakhir) != 0)
-            {
+            if (expired($cekkamar->tanggal_order, $cekkamar->waktu_berakhir) != 0) {
                 return redirect()->route("management-kontrak.index")->with("error", "Kamar Sudah Di Pesan");
             }
         }
         if ($request->hasFile("bukti_pembayaran")) {
             $request->validate([
-                
+
                 "bukti_pembayaran" => "required|image|mimes:jpeg,png,jpg|max:2048",
             ], [
                 "bukti_pembayaran.required" => "Bukti Pembayaran Wajib Di
@@ -94,6 +98,7 @@ class ManagementKontrak extends Controller
                 "bukti_pembayaran.mimes" => "Bukti Pembayaran Harus Berupa
             Gambar",
                 "bukti_pembayaran.max" => "Ukuran File Maksimal 2MB !",
+              
             ]);
             $files = $request->file("bukti_pembayaran");
             $nameFiles = $files->hashName();
