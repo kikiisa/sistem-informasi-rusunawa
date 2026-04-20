@@ -56,7 +56,6 @@ class ManagementKontrak extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             "masa_kontrak" => "required",
         ],[
